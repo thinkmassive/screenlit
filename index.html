@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html dir='ltr' lang='en-US' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+
+<head>
+<meta content='width=device-width, initial-scale=1' name='viewport'/>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<!-- Chrome, Firefox OS and Opera -->
+<meta content='' name='theme-color'/>
+<!-- Windows Phone -->
+<meta content='' name='msapplication-navbutton-color'/>
+<link href='https://screenlit.me/favicon.ico' rel='icon' type='image/x-icon'/>
+<link href='https://screenlit.me/' rel='canonical'/>
+<meta content='https://screenlit.me/' property='og:url'/>
+<meta content='ScreenLit' property='og:title'/>
+<meta content='Fully controllable lighting from your screen, for live streaming, conferencing, and recording.' property='og:description'/>
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<title>ScreenLit</title>
+<style id='page-skin-1' type='text/css'><!--
+body{background:#fff}
+--></style>
+</head>
+
+<body>
+<!--div class='main section' id='main'><div class='widget HTML' data-version='1' id='HTML1'-->
+<div class='main' id='main'>
+
+<style>
+body{
+  text-align:center;
+  font-family:sans-serif;
+}
+
+@media only screen and (max-width: 600px) {
+  img{
+    width: 100%;
+    height: auto;
+  }
+  iframe{
+    width: 100%;
+    height: 315;
+  }
+  .wrap{
+    padding:10px 0px 0px 0px;
+    margin:0px;
+  }
+  .para{
+    margin:0px;
+    margin-top:20px;
+    margin-bottom:20px;
+  }
+}
+
+h1{
+  font-size:70px;
+}
+h2{
+  color:black;
+  font-weight:400;
+  font-size:18px;
+}
+h3{
+  color:black;
+  font-weight:600;
+  font-size:16px;
+}
+.para{
+  margin:30px;
+  text-align:left;
+  margin-top:20px;
+  margin-bottom:30px;
+}
+
+input[type=button]{
+  margin:10px;
+  cursor: pointer;
+  border-radius:5px;
+  padding:30px 30px;
+  outline:none;
+  border:none;
+  -webkit-box-shadow: 0px 0px 30px -5px gray;
+  -moz-box-shadow: 0px 0px 30px -5px gray;
+  box-shadow: 0px 0px 30px -5px gray;
+}
+
+input[type=text]{
+  width:100px;
+  text-align:center;
+  border:1px solid grey;
+  padding:8px 5px 5px 5px;
+  position:relative;
+  left:5px;
+  font-size:15px;
+  border-radius:4px;
+}
+
+.kelvin1500{
+  background:rgb(255,108,0);
+}
+.kelvin2680{
+  background:rgb(255,166,86);
+}
+.kelvin3200{
+  background:rgb(255,184,123);
+}
+.kelvin4200{
+  background:rgb(255,211,175);
+}
+.kelvin5500{
+  background:rgb(255,237,222);
+}
+.kelvin6500{
+  background:rgb(255,254,250);
+}
+.kelvin7500{
+  background:rgb(230,235,255);
+}
+.customButton{
+  background:black;
+}
+
+.wrap{
+  background:#f7f7f7;
+  display:inline-block;
+  padding:30px 0px 0px 0px;
+  margin:30px;
+  border-radius:10px;
+}
+
+.footer{
+  background:#454545;
+  margin:0px;
+  font-size:15px;
+  padding:30px;
+  color:white;
+  letter-spacing:1px;
+}
+
+</style>
+
+<script type="text/javascript">
+
+// From http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/
+function clamp( x, min, max ) {
+  if(x<min){ return min; }
+  if(x>max){ return max; }
+  return x;
+}
+    
+function kelvinToRGB(kelvin){
+  var temp = kelvin / 100;
+  var red, green, blue;
+
+  if( temp <= 66 ){ 
+    red = 255; 
+    green = temp;
+    green = 99.4708025861 * Math.log(green) - 161.1195681661;
+    if( temp <= 19){
+        blue = 0;
+    } else {
+        blue = temp-10;
+        blue = 138.5177312231 * Math.log(blue) - 305.0447927307;
+    }
+  } else {
+    red = temp - 60;
+    red = 329.698727446 * Math.pow(red, -0.1332047592);
+    green = temp - 60;
+    green = 288.1221695283 * Math.pow(green, -0.0755148492 );
+    blue = 255;
+  }
+  return {
+    r : clamp(red,   0, 255),
+    g : clamp(green, 0, 255),
+    b : clamp(blue,  0, 255)
+  }
+}
+
+function bgInput(){
+  var x=document.getElementById("customColor").value;
+  document.getElementById("colorPicker").style.background=x;
+  fullscreen();
+}
+
+function bgKelvin(k){
+  rgb = kelvinToRGB(k);
+  bg_rgb = "rgb(" + rgb.r + "," + rgb.g + "," + rgb.b + ")";
+  document.getElementById("colorPicker").style.background=bg_rgb;
+  fullscreen();
+}
+
+function customPreview(){
+  var x=document.getElementById("customColor").value;
+  document.getElementById("customButton").style.background=x;
+}
+
+function fullscreen(){
+  var elem = document.getElementById("colorPicker");
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.msRequestFullscreen) {
+    elem.msRequestFullscreen();
+  } else if (elem.mozRequestFullScreen) {
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
+  }
+}
+</script> 
+
+<h1>ScreenLit</h1>
+
+<h2>Click a color to get a full-screen light.</h2>
+<h3>Press the ESC key to exit.</h3>
+<br />
+<div id="colorPicker" style="background:black border:1px solid black"></div>
+<input type="button" class="kelvin1500" value="1500K" onclick="bgKelvin(1500)" />
+<input type="button" class="kelvin2680" value="2680K" onclick="bgKelvin(2680)" />
+<input type="button" class="kelvin3200" value="3200K" onclick="bgKelvin(3200)" />
+<input type="button" class="kelvin4200" value="4200K" onclick="bgKelvin(4200)" />
+<input type="button" class="kelvin5500" value="5500K" onclick="bgKelvin(5500)" />
+<input type="button" class="kelvin6500" value="6500K" onclick="bgKelvin(6500)" />
+<input type="button" class="kelvin7500" value="7500K" onclick="bgKelvin(7500)" />
+<br />
+<br />
+<input type="button" class="customButton" id="customButton" value="custom" onclick="bgInput()" /><br />
+<input type="text" id="customColor" oninput="customPreview()" value="custom" />
+<br /><br /><br />
+
+<div class="footer">
+&#169; 2021 ScreenLit.me
+</div>
+
+  
+
+</body>
+</html>
