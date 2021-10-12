@@ -16,7 +16,7 @@
 <!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
 <title>ScreenLit</title>
 <style id='page-skin-1' type='text/css'><!--
-body{background:#fff}
+body{background:#777}
 --></style>
 </head>
 
@@ -28,6 +28,7 @@ body{background:#fff}
 body{
   text-align:center;
   font-family:sans-serif;
+  opacity: 40%;
 }
 
 @media only screen and (max-width: 600px) {
@@ -96,14 +97,41 @@ input[type=text]{
 .kelvin1500{
   background:rgb(255,108,0);
 }
+.kelvin1700{
+  background:#ff7900;
+}
+.kelvin1850{
+  background:#ff8100;
+}
+.kelvin2400{
+  background:#ff9c3e;
+}
+.kelvin2550{
+  background:#ffa24a;
+}
 .kelvin2680{
   background:rgb(255,166,86);
+}
+.kelvin2700{
+  background:#ffa855;
+}
+.kelvin3000{
+  background:#ffb369;
 }
 .kelvin3200{
   background:rgb(255,184,123);
 }
+.kelvin3200{
+  background:#ffba75;
+}
+.kelvin3350{
+  background:#ffbf7e;
+}
 .kelvin4200{
   background:rgb(255,211,175);
+}
+.kelvin5000{
+  background:#ffe4cc;
 }
 .kelvin5500{
   background:rgb(255,237,222);
@@ -115,7 +143,7 @@ input[type=text]{
   background:rgb(230,235,255);
 }
 .customButton{
-  background:black;
+  background:grey;
 }
 
 .wrap{
@@ -175,9 +203,10 @@ function kelvinToRGB(kelvin){
 }
 
 function bgInput(){
-  var x=document.getElementById("customColor").value;
-  document.getElementById("colorPicker").style.background=x;
+  var bg=document.getElementById("customColor").value;
+  document.getElementById("colorPicker").style.background=bg;
   fullscreen();
+  document.body.style.backgroundColor=bg;
 }
 
 function bgKelvin(k){
@@ -185,6 +214,7 @@ function bgKelvin(k){
   bg_rgb = "rgb(" + rgb.r + "," + rgb.g + "," + rgb.b + ")";
   document.getElementById("colorPicker").style.background=bg_rgb;
   fullscreen();
+  document.body.style.backgroundColor=bg_rgb;
 }
 
 function customPreview(){
@@ -204,22 +234,31 @@ function fullscreen(){
     elem.webkitRequestFullscreen();
   }
 }
+
 </script> 
 
-<h1>ScreenLit</h1>
+<h1 style="opacity: 20%">ScreenLit</h1>
 
 <h2>Click a color to get a full-screen light.</h2>
 <h3>Press the ESC key to exit.</h3>
 <br />
 <div id="colorPicker" style="background:black border:1px solid black"></div>
-<input type="button" class="kelvin1500" value="1500K" onclick="bgKelvin(1500)" />
+<input type="button" class="kelvin1700" value="1700K" onclick="bgKelvin(1700)" />
+<input type="button" class="kelvin1850" value="1850K" onclick="bgKelvin(1850)" />
+<input type="button" class="kelvin2400" value="2400K" onclick="bgKelvin(2400)" />
+<input type="button" class="kelvin2550" value="2550K" onclick="bgKelvin(2550)" />
 <input type="button" class="kelvin2680" value="2680K" onclick="bgKelvin(2680)" />
+<input type="button" class="kelvin2700" value="2700K" onclick="bgKelvin(2700)" />
+<input type="button" class="kelvin3000" value="3000K" onclick="bgKelvin(3000)" />
 <input type="button" class="kelvin3200" value="3200K" onclick="bgKelvin(3200)" />
+<input type="button" class="kelvin3350" value="3350K" onclick="bgKelvin(3350)" />
 <input type="button" class="kelvin4200" value="4200K" onclick="bgKelvin(4200)" />
+<input type="button" class="kelvin5000" value="5000K" onclick="bgKelvin(5000)" />
 <input type="button" class="kelvin5500" value="5500K" onclick="bgKelvin(5500)" />
 <input type="button" class="kelvin6500" value="6500K" onclick="bgKelvin(6500)" />
 <input type="button" class="kelvin7500" value="7500K" onclick="bgKelvin(7500)" />
 <br />
+<b><p>Choose a preset <a href="https://en.wikipedia.org/wiki/Color_temperature">color temperature</a> above</p><p>or enter a custom color below!</p></b>
 <br />
 <input type="button" class="customButton" id="customButton" value="custom" onclick="bgInput()" /><br />
 <input type="text" id="customColor" oninput="customPreview()" value="custom" />
