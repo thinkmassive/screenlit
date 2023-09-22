@@ -207,7 +207,6 @@ function kelvinToRGB(kelvin){
 function bgInput(){
   var bg=document.getElementById("customColor").value;
   document.getElementById("colorPicker").style.background=bg;
-  fullscreen();
   document.body.style.backgroundColor=bg;
 }
 
@@ -215,7 +214,6 @@ function bgKelvin(k){
   rgb = kelvinToRGB(k);
   bg_rgb = "rgb(" + rgb.r + "," + rgb.g + "," + rgb.b + ")";
   document.getElementById("colorPicker").style.background=bg_rgb;
-  fullscreen();
   document.body.style.backgroundColor=bg_rgb;
 }
 
@@ -243,7 +241,8 @@ function fullscreen(){
 
 <h1 style="opacity: 20%">ScreenLit</h1>
 
-<h2>Click a color to get a full-screen light.</h2>
+<h2>Click a color to change the screen light.</h2>
+<h3 style="cursor: pointer;" onclick="fullscreen()">Click here for fullscreen</h3>
 <h3>Press the ESC key to exit.</h3>
 <br />
 <div id="colorPicker" style="background:black border:1px solid black"></div>
