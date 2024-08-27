@@ -235,6 +235,25 @@ function fullscreen(){
   }
 }
 
+function toggleShadows(){
+  var shadowStyle = '0px 0px 30px -5px gray';
+  var buttons = document.querySelectorAll('input[type=button]');
+
+  buttons.forEach(button => {
+    var currentBoxShadow = getComputedStyle(button).boxShadow;
+
+    if (currentBoxShadow !== 'none') {
+      button.style.boxShadow = 'none';
+      button.style['-webkit-box-shadow'] = 'none';
+      button.style['-moz-box-shadow'] = 'none';
+    } else {
+      button.style.boxShadow = shadowStyle;
+      button.style['-webkit-box-shadow'] = shadowStyle;
+      button.style['-moz-box-shadow'] = shadowStyle;
+    }
+  });
+}
+
 </script> 
 <script data-goatcounter="https://stats.screenlit.me/count" async src="//gc.zgo.at/count.js"></script>
 
