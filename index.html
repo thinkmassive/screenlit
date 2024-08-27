@@ -147,6 +147,9 @@ input[type=text]{
 .customButton{
   background:grey;
 }
+.shadowsButton{
+  background:lightgrey;
+}
 
 .wrap{
   background:#f7f7f7;
@@ -282,7 +285,8 @@ function toggleShadows(){
 <b><p>Choose a preset <a href="https://en.wikipedia.org/wiki/Color_temperature">color temperature</a> above</p><p>or enter a <a href="https://www.w3schools.com/colors/colors_picker.asp">custom color</a> below!</p></b>
 <br />
 <input type="button" class="customButton" id="customButton" value="custom" onclick="bgInput()" /><br />
-<input type="text" id="customColor" oninput="customPreview()" value="custom" />
+<input type="text" id="customColor" oninput="customPreview()" value="custom" /><br />
+<input type="button" class="shadowsButton" id="shadowsButton" onclick="toggleShadows()" value="toggle shadows" />
 <br /><br /><br />
 
 <div class="footer">
